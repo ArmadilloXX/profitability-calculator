@@ -1,0 +1,12 @@
+machine:
+  node:
+    version: 7.4.0
+  ruby:
+    version: 2.4.0
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+dependencies:
+  override:
+    - yarn
+  pre:
+    - bundle install
