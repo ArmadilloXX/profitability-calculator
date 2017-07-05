@@ -7,7 +7,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use postgresql as the database for Active Record
@@ -38,8 +37,24 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Use custom RSpec-Rails branch to fix log error
+  gem "rspec-rails" , git:"https://github.com/sj26/rspec-rails.git", branch:'fix-log-subscriber-outside-current-example'
+
+  # Use original master branch for dependent RSpec repos
+  %w[rspec-core rspec-expectations rspec-mocks rspec-support].each do |lib|
+    gem lib, git:"https://github.com/rspec/#{lib}.git", branch:'master'
+  end
+
+  gem 'pry-rails'
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'capybara'
+end
+  
+group :test do
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'rails-controller-testing'
 end
 
 group :development do
