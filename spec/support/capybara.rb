@@ -17,4 +17,3 @@ Capybara.configure do |config|
   config.app_host = 'http://eventarium.dev'
   config.always_include_port = true
 end
-

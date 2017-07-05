@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - db/**
+    - node_modules/**
+    - config/**
+Rails:
+  Enabled: true
+Documentation:
+  Enabled: false
