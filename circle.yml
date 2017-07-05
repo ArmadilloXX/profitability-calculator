@@ -10,3 +10,9 @@ dependencies:
     - yarn
   pre:
     - bundle install
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: profitability-calculator
+
