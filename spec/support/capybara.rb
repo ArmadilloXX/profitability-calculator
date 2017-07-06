@@ -14,6 +14,6 @@ end
 
 Capybara.configure do |config|
   config.javascript_driver = :selenium_chrome
-  config.app_host = 'http://eventarium.dev'
+  config.app_host = 'http://localhost'
   config.always_include_port = true
 end
