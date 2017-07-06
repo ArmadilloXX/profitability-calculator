@@ -7,7 +7,16 @@ RSpec.feature 'User visit loan details page', type: :feature do
 
   before { visit loan_path(loan) }
 
-  it 'shows loan id header' do
-    expect(page).to have_css('h1', text: "LOAN ##{loan.id}")
+  it 'shows proper header' do
+    expect(page).to have_css('h1', text: "LOAN DETAILS")
+  end
+  it "shows loan's borrower name" do
+    expect(page).to have_css('h2', text: borrower.name)
+  end
+  it "shows loan's amount" do
+    expect(page).to have_css('h2', text: loan.amount)
+  end
+  it "shows loan's loan plan name" do
+    expect(page).to have_css('h2', text: loan_plan.name)
   end
 end
