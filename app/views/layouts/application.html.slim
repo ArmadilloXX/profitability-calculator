@@ -10,6 +10,7 @@ html
   body
     application[inline-template]
       #application
+        = render 'partials/header'
         main
           = yield
     = javascript_pack_tag 'application'
