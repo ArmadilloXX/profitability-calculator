@@ -12,7 +12,7 @@ import LoanPaymentsTable from './components/LoanPaymentsTable.vue';
 Vue.use(VueResource);
 
 let token = document.querySelector('meta[name="csrf-token"]');
-if (token !== undefined) {
+if (token !== null) {
   Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').content;
 }
 
