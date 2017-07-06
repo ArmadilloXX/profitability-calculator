@@ -1,12 +1,16 @@
 /* eslint no-console:0 */
 
 import Vue from 'vue/dist/vue';
+import VueResource from 'vue-resource'
 import Buefy from 'buefy';
 import 'buefy/lib/buefy.css';
 import TurbolinksAdapter from 'vue-turbolinks';
 import Header from './components/Header.vue';
 import LoansTable from './components/LoansTable.vue';
 import LoanPaymentsTable from './components/LoanPaymentsTable.vue';
+
+Vue.use(VueResource);
+Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').content;
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa'
