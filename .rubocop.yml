@@ -10,3 +10,5 @@ Rails:
   Enabled: true
 Documentation:
   Enabled: false
+FrozenStringLiteralComment:
+  Enabled: false
