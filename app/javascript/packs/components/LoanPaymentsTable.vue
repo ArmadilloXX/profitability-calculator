@@ -38,16 +38,12 @@
 <script>
   export default {
     props: [ 'loanId' ],
+    beforeMount() {
+      this.getPaymentsList();
+    },
     data() {
         return {
-            paymentsData: [
-              { id: 1, amount: 191666.67 },
-              { id: 2, amount: 191666.67 },
-              { id: 3, amount: 191666.67 },
-              { id: 4, amount: 191666.67 },
-              { id: 5, amount: 191666.67 },
-              { id: 5, amount: 191666.67 },
-            ],
+            paymentsData: [],
             checkedRows: [],
             selected: {},
             isBordered: false,
@@ -62,15 +58,22 @@
         }
     },
     methods: {
+      getPaymentsList() {
+        this.$http.get(`/loans/${this.loanId}/payments`).then(response => {
+          this.paymentsData = response.body;
+        }, response => {
+          console.log(response);
+        });
+      },
       linkToPaymentDetails(id) {
         return `/loans/${this.loanId}/payments/${id}`;
       },
-        clearSelected() {
-            this.selected = {}
-        },
-        clearCheckedRows() {
-            this.checkedRows = []
-        }
+      clearSelected() {
+          this.selected = {}
+      },
+      clearCheckedRows() {
+          this.checkedRows = []
+      }
     },
 }
 </script>
