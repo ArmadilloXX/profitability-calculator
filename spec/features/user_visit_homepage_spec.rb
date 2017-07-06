@@ -13,7 +13,7 @@ RSpec.feature 'User visit homepage', type: :feature do
     end
     it 'can visit Dashboard page' do
       click_link(class: 'is-hidden-mobile', text: 'Dashboard')
-      expect(page).to have_css('h1', text: 'Dashboard')
+      expect(page).to have_css('h2', text: 'Real profitability rate')
     end
   end
 end
