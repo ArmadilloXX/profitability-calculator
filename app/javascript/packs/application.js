@@ -10,7 +10,11 @@ import LoansTable from './components/LoansTable.vue';
 import LoanPaymentsTable from './components/LoanPaymentsTable.vue';
 
 Vue.use(VueResource);
-Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').content;
+
+let token = document.querySelector('meta[name="csrf-token"]');
+if (token !== undefined) {
+  Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').content;
+}
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa'

@@ -2,6 +2,10 @@ require 'rails_helper'
 require 'support/capybara'
 
 RSpec.feature 'User visit dashboard page', type: :feature do
+  let!(:borrower)   { create :borrower }
+  let!(:loan_plan)  { create :loan_plan }
+  let!(:loan)       { create :loan, borrower: borrower, loan_plan: loan_plan }
+
   context 'successfully' do
     before { visit dashboard_path }
     it 'shows expected profitability' do
@@ -13,6 +17,8 @@ RSpec.feature 'User visit dashboard page', type: :feature do
     it 'shows table of loans', js: true do
       expect(page).to have_css('table.table')
     end
-    it 'shows "Add new loan" button'
+    it 'shows "Add new loan" button' do
+      expect(page).to have_css('button', text: 'Add new loan')
+    end
   end
 end
