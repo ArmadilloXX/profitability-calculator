@@ -1,0 +1,15 @@
+app-header[inline-template]
+  header
+    nav.nav.sticky.has-shadow[role='navigation']
+      .container.is-fluid
+        .nav-left
+          = link_to 'PROFITABILITY CALCULATOR', root_path, class: 'nav-item logo'
+        .nav-center
+          = link_to 'Dashboard', '#', class: 'nav-item is-hidden-mobile'
+        span.nav-toggle[@click="toggleNavigation"]
+          span
+          span
+          span
+        .nav-right.nav-menu[:class="{ 'is-active': showMenu }"]
+          = link_to 'Dashboard', '#', class: 'nav-item is-hidden-tablet'
+    = render 'partials/flash_messages' if flash.any?
