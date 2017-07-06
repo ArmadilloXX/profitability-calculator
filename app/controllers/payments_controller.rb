@@ -5,7 +5,6 @@ class PaymentsController < ApplicationController
     render json: @loan.payments
   end
 
-
   private
 
   def set_loan
