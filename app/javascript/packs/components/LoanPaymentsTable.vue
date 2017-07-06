@@ -63,7 +63,7 @@
     },
     methods: {
       linkToPaymentDetails(id) {
-        return `loans/${this.loanId}/payments/${id}`;
+        return `/loans/${this.loanId}/payments/${id}`;
       },
         clearSelected() {
             this.selected = {}
