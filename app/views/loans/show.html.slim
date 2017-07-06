@@ -1,0 +1,16 @@
+section.hero.is-small.is-primary
+  .hero-body
+    .container.has-text-centered
+      h1.title.is-1 LOAN DETAILS
+      .columns
+        .column.is-3.has-text-centered
+          h2.title.is-4 = @loan.borrower.name
+          h2.subtitle.is-6 Borrower
+        .column.is-3.has-text-centered
+          h2.title.is-4 = @loan.amount
+          h2.subtitle.is-6 Amount
+        .column.is-3.has-text-centered
+          h2.title.is-4 = @loan.loan_plan.name
+          h2.subtitle.is-6 Loan Plan
+section.section
+  app-loan-payments-table[loan-id=@loan.id]
