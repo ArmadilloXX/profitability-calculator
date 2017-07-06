@@ -6,10 +6,14 @@ machine:
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 dependencies:
-  override:
-    - yarn
   pre:
-    - bundle install
+    - gem install bundler
+    - gem update bundler
+  override:
+    - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - yarn
+  post:
+    - npm rebuild node-sass
 deployment:
   production:
     branch: master
