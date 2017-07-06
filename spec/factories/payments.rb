@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :payment do
-    amount 1.5
-    loan nil
+    amount 191_666.67
   end
 end
