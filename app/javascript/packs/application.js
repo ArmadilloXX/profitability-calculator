@@ -6,6 +6,7 @@ import 'buefy/lib/buefy.css';
 import TurbolinksAdapter from 'vue-turbolinks';
 import Header from './components/Header.vue';
 import LoansTable from './components/LoansTable.vue';
+import LoanPaymentsTable from './components/LoanPaymentsTable.vue';
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa'
@@ -14,7 +15,8 @@ Vue.use(Buefy, {
 Vue.component('application', {
   components: {
     appHeader: Header,
-    appLoansTable: LoansTable
+    appLoansTable: LoansTable,
+    appLoanPaymentsTable: LoanPaymentsTable
   }
 });
 

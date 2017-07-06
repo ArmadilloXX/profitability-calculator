@@ -23,5 +23,4 @@ RSpec.feature 'User visit loan details page', type: :feature do
   it "shows loan's payments table", js: true do
     expect(page).to have_css('table.table')
   end
-
 end
