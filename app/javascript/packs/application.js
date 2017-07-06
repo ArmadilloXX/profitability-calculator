@@ -5,10 +5,16 @@ import Buefy from 'buefy';
 import 'buefy/lib/buefy.css';
 import TurbolinksAdapter from 'vue-turbolinks';
 import Header from './components/Header.vue';
+import LoansTable from './components/LoansTable.vue';
+
+Vue.use(Buefy, {
+  defaultIconPack: 'fa'
+});
 
 Vue.component('application', {
   components: {
-    appHeader: Header
+    appHeader: Header,
+    appLoansTable: LoansTable
   }
 });
 
