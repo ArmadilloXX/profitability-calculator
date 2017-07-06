@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <b-table
-      :data="tableData"
+      :data="loansData"
       :bordered="isBordered"
       :striped="isStriped"
       :narrowed="isNarrowed"
@@ -42,13 +42,12 @@
 
 <script>
   export default {
+    beforeMount() {
+      this.getLoansList();
+    },
     data() {
         return {
-            tableData: [
-              { id: 1, amount: 1000000.0, borrower: 'Test Borrower 1', loan_plan: 'Basic 6/30%/50%' },
-              { id: 2, amount: 900000.0, borrower: 'Test Borrower 2', loan_plan: 'Basic 6/30%/50%' },
-              { id: 3, amount: 800000.0, borrower: 'Test Borrower 3', loan_plan: 'Basic 6/30%/50%' }
-            ],
+            loansData: [],
             checkedRows: [],
             selected: {},
             isBordered: false,
@@ -63,6 +62,13 @@
         }
     },
     methods: {
+      getLoansList() {
+        this.$http.get('/loans').then(response => {
+          this.loansData = response.body;
+        }, response => {
+          console.log(response);
+        });
+      },
       linkToLoanDetails(id) {
         return `/loans/${id}`;
       },
