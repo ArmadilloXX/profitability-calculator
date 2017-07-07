@@ -8,11 +8,12 @@
       placeholder="Enter payment amount"
       required]
   .field
-      = f.label :period
+      = f.label :available_periods_for_payment
       br
       p.control.has-icons-left
         span.select
-          = f.collection_select :borrower_id, Borrower.all, :id, :name 
+          = f.select(:payment_period,
+            @loan.upcoming_payment_periods.map {|period| [period, period] })
         span.icon.is-left
           i.fa.fa-calendar
   br

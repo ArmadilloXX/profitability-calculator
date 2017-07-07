@@ -21,6 +21,7 @@
           </b-table-column>
 
           <b-table-column field="period" label="Period" sortable>
+              {{ props.row.payment_period }}
           </b-table-column>
 
           <b-table-column field="amount" label="Amount" sortable numeric>
