@@ -8,7 +8,7 @@ import css from './stylesheets/application.sass';
 import TurbolinksAdapter from 'vue-turbolinks';
 import Header from './components/Header.vue';
 import Loans from './components/Loans.vue';
-import LoanPaymentsTable from './components/LoanPaymentsTable.vue';
+import LoanPayments from './components/LoanPayments.vue';
 
 Vue.use(VueResource);
 
@@ -25,7 +25,7 @@ Vue.component('application', {
   components: {
     appHeader: Header,
     appLoans: Loans,
-    appLoanPaymentsTable: LoanPaymentsTable
+    appLoanPayments: LoanPayments
   }
 });
 
