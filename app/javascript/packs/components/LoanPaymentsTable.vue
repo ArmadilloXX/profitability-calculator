@@ -16,21 +16,25 @@
       :checked-rows.sync="checkedRows">
 
       <template scope="props">
-          <b-table-column field="id" label="ID" width="40" sortable numeric>
-              {{ props.row.id }}
-          </b-table-column>
+        <b-table-column field="id" label="ID" width="40" sortable numeric>
+            {{ props.row.id }}
+        </b-table-column>
 
-          <b-table-column field="period" label="Period" sortable>
-              {{ props.row.payment_period }}
-          </b-table-column>
+        <b-table-column field="period" label="Period" sortable>
+            {{ props.row.payment_period }}
+        </b-table-column>
 
-          <b-table-column field="amount" label="Amount" sortable numeric>
-              {{ props.row.amount}}
-          </b-table-column>
+        <b-table-column field="overdue" label="Overdued?" sortable>
+          <span class="tag"
+                :class="{ 'is-success': !props.row.overdue,
+                          'is-danger': props.row.overdue }">
+            {{ props.row.overdue ? 'Overdued' : 'Normal'}}
+          </span>
+        </b-table-column>
 
-          <b-table-column label="Details">
-            <a class="button is-small is-primary" :href="linkToPaymentDetails(props.row.id)">Payment details</a>
-          </b-table-column>
+        <b-table-column field="amount" label="Amount" sortable numeric>
+            {{ props.row.amount}}
+        </b-table-column>
       </template>
     </b-table> 
   </div>
