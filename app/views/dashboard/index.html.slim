@@ -9,6 +9,5 @@ section.hero.is-small.is-primary
           h2.title.is-1 35%
           h2.subtitle.is-5 Real profitability rate
 section.section
-  app-loans
-    .form[slot='loan-form']
-      = render 'partials/new_loan_form'
+  app-loans[v-cloak]
+    = render 'partials/new_loan_form'

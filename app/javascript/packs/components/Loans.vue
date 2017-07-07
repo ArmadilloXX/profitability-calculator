@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-cloak>
     <div class="columns">
       <div class="column is-12">
         <div class="level">
@@ -14,17 +14,21 @@
       <b-modal v-cloak :active.sync='newLoanFormOpened' :width='450'>
         <div class="card">
           <div class="card-content">
-            <slot name="loan-form"></slot>
+            <app-loan-form>
+
+              <slot></slot>
+            </app-loan-form>
           </div>
         </div>
       </b-modal>
     </div>
-    <app-loans-table></app-loans-table>
+    <app-loans-table v-cloak></app-loans-table>
   </div>
 </template>
 
 <script>
   import LoansTable from './LoansTable.vue'
+  import LoanForm from './LoanForm.vue'
   
   export default {
     data() {
@@ -33,11 +37,18 @@
       }
     },
     components: {
-      appLoansTable: LoansTable
+      appLoansTable: LoansTable,
+      appLoanForm: LoanForm
     },
     methods: {
       showNewLoanForm() {
         this.newLoanFormOpened = true;
+      },
+      showErrors(event) {
+        console.log(event);
+      },
+      handleSuccess(event) {
+        console.log(event)
       }
     }
   }
