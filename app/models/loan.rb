@@ -10,8 +10,8 @@ class Loan < ApplicationRecord
   def upcoming_payment_periods
     (payments_periods - closed_payment_periods).map { |name| name }
   end
-  
+
   def closed_payment_periods
-    payments.map { |payment| payment.payment_period }
+    payments.map(&:payment_period)
   end
 end
