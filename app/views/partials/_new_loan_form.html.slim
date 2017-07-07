@@ -1,0 +1,29 @@
+h2.title.is-3.has-text-centered Add new loan
+br
+= form_with scope: :loan, url: create_loan_path, data: { remote: true } do |f|
+  b-field
+    b-input[
+      type="number"
+      icon="rub"
+      name="loan[amount]"
+      placeholder="Enter loan amount"
+      required]
+  .field
+      = f.label :borrower
+      br
+      p.control.has-icons-left
+        span.select
+          = f.collection_select :borrower_id, Borrower.all, :id, :name 
+        span.icon.is-left
+          i.fa.fa-handshake-o
+  .field
+      = f.label :loan_plan
+      br
+      p.control.has-icons-left
+        span.select
+          = f.collection_select :loan_plan_id, LoanPlan.all, :id, :name 
+        span.icon.is-left
+          i.fa.fa-calculator
+  br
+  br
+  = f.submit 'Save', class: 'button is-primary is-large'
