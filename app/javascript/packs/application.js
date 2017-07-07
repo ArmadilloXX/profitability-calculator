@@ -4,7 +4,7 @@ import Vue from 'vue/dist/vue';
 import VueResource from 'vue-resource'
 import Buefy from 'buefy';
 import 'buefy/lib/buefy.css';
-import css from './stylesheets/application.sass'
+import css from './stylesheets/application.sass';
 import TurbolinksAdapter from 'vue-turbolinks';
 import Header from './components/Header.vue';
 import Loans from './components/Loans.vue';

@@ -20,7 +20,7 @@ RSpec.feature 'User visit dashboard page', type: :feature, js: true do
     end
 
     it 'shows newly created loan in loans table' do
-      expect(page).to have_content(500000)
+      expect(page).to have_content(500_000)
     end
   end
 end
