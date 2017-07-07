@@ -17,7 +17,7 @@ RSpec.feature 'User visit dashboard page', type: :feature do
     it 'shows table of loans', js: true do
       expect(page).to have_css('table.table')
     end
-    it 'shows "Add new loan" button' do
+    it 'shows "Add new loan" button', js: true do
       expect(page).to have_css('button', text: 'Add new loan')
     end
   end
