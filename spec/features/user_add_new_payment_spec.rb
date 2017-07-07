@@ -4,7 +4,7 @@ require 'support/capybara'
 RSpec.feature 'User add new payment', type: :feature, js: true do
   let!(:borrower)   { create :borrower }
   let!(:loan_plan)  { create :loan_plan }
-  let!(:loan)       { create :loan, loan_plan: loan_plan, borrower: borrower }
+  let(:loan)       { create :loan, loan_plan: loan_plan, borrower: borrower }
 
   def fill_and_submit_new_payment_form
     visit loan_path(loan)
