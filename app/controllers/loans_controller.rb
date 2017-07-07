@@ -19,7 +19,7 @@ class LoansController < ApplicationController
   private
 
   def set_loan
-    @loan = Loan.find(params[:id])
+    @loan = Loan.includes(:borrower, :loan_plan).find(params[:id])
   end
 
   def loan_params
