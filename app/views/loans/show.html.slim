@@ -1,17 +1,28 @@
 section.hero.is-small.is-primary
   .hero-body
     .container.has-text-centered
-      h1.title.is-1 LOAN DETAILS
+      h1.title.is-1 = @loan.borrower.name
       .columns
-        .column.is-3.has-text-centered
-          h2.title.is-4 = @loan.borrower.name
-          h2.subtitle.is-6 Borrower
-        .column.is-3.has-text-centered
-          h2.title.is-4 = @loan.amount
-          h2.subtitle.is-6 Amount
-        .column.is-3.has-text-centered
+        .column.is-6.has-text-centered
           h2.title.is-4 = @loan.loan_plan.name
           h2.subtitle.is-6 Loan Plan
+        .column.is-6.has-text-centered
+          h2.title.is-4 = "#{@loan.loan_plan.basic_rate.round(2)*100}%"
+          h2.subtitle.is-6 Basic Rate
+
+      .columns
+        .column.is-3.has-text-centered
+          h2.title.is-3= "#{@loan.current_profitability_rate.round(2)*100}%"
+          h2.subtitle.is-6 Current Profitability
+        .column.is-3.has-text-centered
+          h2.title.is-3 = @loan.amount
+          h2.subtitle.is-6 Amount
+        .column.is-3.has-text-centered
+          h2.title.is-3 = @loan.expected_sum
+          h2.subtitle.is-6 Expected Sum
+        .column.is-3.has-text-centered
+          h2.title.is-3 = @loan.received_sum
+          h2.subtitle.is-6 Received Sum
 section.section
   app-loan-payments[loan-id=@loan.id v-cloak]
     = render 'partials/new_payment_form'

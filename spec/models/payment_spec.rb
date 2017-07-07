@@ -8,5 +8,6 @@ RSpec.describe Payment, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :payment_period }
+    it { is_expected.to validate_numericality_of(:amount).is_greater_than(0) }
   end
 end

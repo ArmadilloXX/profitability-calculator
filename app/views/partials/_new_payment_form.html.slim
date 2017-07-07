@@ -16,6 +16,12 @@
             @loan.upcoming_payment_periods.map {|period| [period, period] })
         span.icon.is-left
           i.fa.fa-calendar
+  .field
+    p.control
+      label.checkbox
+        = f.check_box :overdue
+        span.check
+        span.control-label Payment overdued
   br
   br
   = f.submit 'Save', class: 'button is-primary is-large'

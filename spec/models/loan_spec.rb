@@ -5,6 +5,8 @@ RSpec.describe Loan, type: :model do
     it { is_expected.to belong_to :borrower }
     it { is_expected.to have_many :payments }
     it { is_expected.to belong_to :loan_plan }
+    it { is_expected.to have_attributes(received_sum: 0.0) }
+    it { is_expected.to have_attributes(expected_sum: 0.0) }
   end
 
   describe 'validations' do
