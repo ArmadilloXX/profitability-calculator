@@ -10,6 +10,7 @@ RSpec.feature 'User add new payment', type: :feature, js: true do
     visit loan_path(loan)
     click_on 'Add new payment'
     fill_in 'payment[amount]', with: 191_666.67
+    select 'Month 1', from: 'payment[payment_period]'
     click_on 'Save'
   end
 
@@ -20,6 +21,9 @@ RSpec.feature 'User add new payment', type: :feature, js: true do
 
     it 'shows newly created payment amount in payments table' do
       expect(page).to have_content(191_666.67)
+    end
+    it 'shows newly created payment period in payments table' do
+      expect(page).to have_content('Month 1')
     end
   end
 end
