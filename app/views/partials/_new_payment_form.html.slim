@@ -1,0 +1,19 @@
+= form_with scope: :payment, url: loan_create_payment_path(@loan), data: { remote: true } do |f|
+  b-field
+    b-input[
+      type="number"
+      icon="rub"
+      name="payment[amount]"
+      placeholder="Enter payment amount"
+      required]
+  .field
+      = f.label :period
+      br
+      p.control.has-icons-left
+        span.select
+          = f.collection_select :period, Borrower.all, :id, :name 
+        span.icon.is-left
+          i.fa.fa-calendar
+  br
+  br
+  = f.submit 'Save', class: 'button is-primary is-large'
