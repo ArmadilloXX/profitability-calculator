@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706055030) do
+ActiveRecord::Schema.define(version: 20170707170656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20170706055030) do
     t.datetime "updated_at", null: false
     t.bigint "borrower_id"
     t.bigint "loan_plan_id"
+    t.float "received_sum"
+    t.float "expected_sum"
     t.index ["borrower_id"], name: "index_loans_on_borrower_id"
     t.index ["loan_plan_id"], name: "index_loans_on_loan_plan_id"
   end
@@ -42,6 +44,8 @@ ActiveRecord::Schema.define(version: 20170706055030) do
     t.bigint "loan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_period"
+    t.boolean "overdue"
     t.index ["loan_id"], name: "index_payments_on_loan_id"
   end
 

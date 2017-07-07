@@ -20,20 +20,21 @@
               {{ props.row.id }}
           </b-table-column>
 
-          <b-table-column field="loan_plan" label="Loan Plan" sortable>
-              {{ props.row.loan_plan}}
-          </b-table-column>
-
           <b-table-column field="borrower" label="Borrower" sortable>
               {{ props.row.borrower }}
           </b-table-column>
 
           <b-table-column field="amount" label="Amount" sortable numeric>
-              {{ props.row.amount}}
+              {{ parseFloat(props.row.amount) }}
+          </b-table-column>
+
+          <b-table-column field="received_sum" label="Received Sum" sortable numeric>
+              {{ parseFloat(props.row.received_sum) }}
           </b-table-column>
 
           <b-table-column label="Details">
-            <a class="button is-small is-primary" :href="linkToLoanDetails(props.row.id)">Loan details</a>
+            <a class="button is-small is-primary"
+              :href="linkToLoanDetails(props.row.id)">Payments</a>
           </b-table-column>
       </template>
     </b-table> 
@@ -42,12 +43,9 @@
 
 <script>
   export default {
-    beforeMount() {
-      this.getLoansList();
-    },
+    props: ['loansData'],
     data() {
         return {
-            loansData: [],
             checkedRows: [],
             selected: {},
             isBordered: false,
@@ -62,13 +60,6 @@
         }
     },
     methods: {
-      getLoansList() {
-        this.$http.get('/loans').then(response => {
-          this.loansData = response.body;
-        }, response => {
-          console.log(response);
-        });
-      },
       linkToLoanDetails(id) {
         return `/loans/${id}`;
       },
