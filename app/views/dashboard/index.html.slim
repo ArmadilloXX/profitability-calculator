@@ -9,13 +9,6 @@ section.hero.is-small.is-primary
           h2.title.is-1 35%
           h2.subtitle.is-5 Real profitability rate
 section.section
-  .container
-    .columns
-      .column.is-12
-        .level
-          .level-left
-            h2.title.is-3 Loans
-          .level-right
-            button.button.is-success.is-large Add new loan
-    br
-  app-loans-table
+  app-loans
+    .form[slot='loan-form']
+      = render 'partials/new_loan_form'
