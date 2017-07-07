@@ -83,6 +83,8 @@ test:
 #
 production:
   <<: *default
-  database: ProfitabilityCalculator_production
-  username: ProfitabilityCalculator
-  password: <%= ENV['PROFITABILITYCALCULATOR_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+
+  # database: ProfitabilityCalculator_production
+  # username: <%= ENV['DATABASE_USERNAME'] %>
+  # password: <%= ENV['PROFITABILITYCALCULATOR_DATABASE_PASSWORD'] %>
