@@ -28,11 +28,3 @@
     }
   }
 </script>
-
-<style>
- .form-errors {
-    padding: .5rem;
-    color: white;
-    background-color: hsl(348, 100%, 61%);
-  }
-</style>
