@@ -1,0 +1,22 @@
+machine:
+  node:
+    version: 7.4.0
+  ruby:
+    version: 2.4.0
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+dependencies:
+  pre:
+    - gem install bundler
+    - gem update bundler
+  override:
+    - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - yarn
+  post:
+    - npm rebuild node-sass
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: profitability-calculator
+

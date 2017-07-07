@@ -1,0 +1,14 @@
+AllCops:
+  Exclude:
+    - db/**
+    - node_modules/**/**
+    - config/**/**
+    - bin/**
+    - Gemfile
+    - Rakefile
+Rails:
+  Enabled: true
+Documentation:
+  Enabled: false
+FrozenStringLiteralComment:
+  Enabled: false
