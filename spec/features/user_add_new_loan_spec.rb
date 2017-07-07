@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/capybara'
 
-RSpec.feature 'User visit dashboard page', type: :feature do
+RSpec.feature 'User visit dashboard page', type: :feature, js: true do
   let!(:borrower)   { create :borrower }
   let!(:loan_plan)  { create :loan_plan }
 
@@ -9,8 +9,8 @@ RSpec.feature 'User visit dashboard page', type: :feature do
     visit dashboard_path
     click_on 'Add new loan'
     fill_in 'loan[amount]', with: 500_000
-    select loan_plan.name,  from: 'loan[loan_plan]'
-    select borrower.name,   from: 'loan[borrower]'
+    select loan_plan.name,  from: 'loan[loan_plan_id]'
+    select borrower.name,   from: 'loan[borrower_id]'
     click_on 'Save'
   end
 
