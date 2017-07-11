@@ -9,7 +9,7 @@
         </div>
         <div class="nav-center">
           <router-link class="nav-item is-hidden-mobile"
-                          to='dashboard'
+                          to='/dashboard'
                           active-class='is-active'>
             My Dashboard
           </router-link>
@@ -21,7 +21,7 @@
         </span>
         <div class="nav-right nav-menu" :class="{ 'is-active': showMenu }">
           <router-link class="nav-item is-hidden-tablet"
-                          to='dashboard'
+                          to='/dashboard'
                           active-class='is-active'>
             My Dashboard
           </router-link>
