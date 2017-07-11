@@ -25,8 +25,7 @@
           <b-modal v-cloak :active.sync='newPaymentFormOpened' :width='450'>
             <div class="card">
               <div class="card-content">
-                <app-payment-form>
-                  <slot></slot>
+                <app-payment-form :loan-id='loanId'>
                 </app-payment-form>
               </div>
             </div>
@@ -40,6 +39,7 @@
 </template>
 
 <script>
+  import PaymentForm from './PaymentForm.vue'
   import LoanPaymentsTable from './LoanPaymentsTable.vue'
   export default {
     props: [ 'loan' ],
@@ -50,7 +50,8 @@
       }
     },
     components: {
-      appLoanPaymentsTable: LoanPaymentsTable
+      appLoanPaymentsTable: LoanPaymentsTable,
+      appPaymentForm: PaymentForm
     },
     methods: {
       showNewPaymentForm() {
