@@ -64,7 +64,7 @@
     },
     methods: {
       getPaymentsList() {
-        this.$http.get(`/loans/${this.loanId}/payments`).then(response => {
+        this.$http.get(`/api/v1/loans/${this.loanId}/payments`).then(response => {
           this.paymentsData = response.body;
         }, response => {
           console.log(response);

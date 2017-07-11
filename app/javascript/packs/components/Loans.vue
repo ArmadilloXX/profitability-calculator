@@ -80,7 +80,7 @@
     },
     methods: {
       getLoansList() {
-        this.$http.get('/loans').then(response => {
+        this.$http.get('/api/v1/loans').then(response => {
           this.loansData = response.body;
         }, response => {
           console.log(response);
