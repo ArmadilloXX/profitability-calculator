@@ -33,8 +33,10 @@
           </b-table-column>
 
           <b-table-column label="Details">
-            <a class="button is-small is-primary"
-              :href="linkToLoanDetails(props.row.id)">Payments</a>
+            <router-link class='button is-small is-primary'
+                         :to='linkToLoanDetails(props.row.id)'>
+              Details
+            </router-link>
           </b-table-column>
       </template>
     </b-table> 
