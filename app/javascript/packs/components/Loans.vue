@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <main>
     <section class="hero is-small is-primary">
       <div class="hero-body">
         <div class="container has-text-centered">
@@ -42,7 +42,7 @@
         <app-loans-table v-cloak :loans-data='loansData'></app-loans-table>
       </div>
     </section>
-  </div>
+  </main>
 </template>
 
 <script>
