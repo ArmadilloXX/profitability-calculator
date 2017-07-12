@@ -11,7 +11,7 @@
           <router-link class="nav-item is-hidden-mobile"
                           to='/dashboard'
                           active-class='is-active'>
-            My Dashboard
+            Dashboard
           </router-link>
         </div>
         <span class="nav-toggle" @click='toggleNavigation'>
@@ -23,7 +23,7 @@
           <router-link class="nav-item is-hidden-tablet"
                           to='/dashboard'
                           active-class='is-active'>
-            My Dashboard
+            Dashboard
           </router-link>
         </div>
       </div>
