@@ -42,18 +42,32 @@
   import PaymentForm from './PaymentForm.vue'
   import LoanPaymentsTable from './LoanPaymentsTable.vue'
   export default {
-    props: [ 'loan' ],
     data() {
       return {
         loanId: this.$route.params.id,
+        loan: {},
         newPaymentFormOpened: false
       }
+    },
+    beforeMount() {
+      this.getLoanDetails();
     },
     components: {
       appLoanPaymentsTable: LoanPaymentsTable,
       appPaymentForm: PaymentForm
     },
     methods: {
+      getLoanDetails() {
+        this.$http.get(`/api/v1/loans/${this.loanId}`).then(
+          response => {
+            this.loan = response.body;
+            console.log(response.body);
+          },
+          response => {
+            console.log(response.body);
+          }
+        );
+      },
       showNewPaymentForm() {
         this.newPaymentFormOpened = true;
       },
