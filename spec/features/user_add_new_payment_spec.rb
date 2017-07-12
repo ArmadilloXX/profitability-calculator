@@ -20,7 +20,7 @@ RSpec.feature 'User add new payment', type: :feature, js: true do
   end
 
   def fill_and_submit_new_payment_form
-    visit loan_path(loan)
+    visit "/loans/#{loan.id}"
     click_on 'Add new payment'
     fill_in 'payment[amount]', with: 191_666.67
     select 'Month 1', from: 'payment[payment_period]'
