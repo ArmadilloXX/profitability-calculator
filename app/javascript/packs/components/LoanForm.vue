@@ -4,7 +4,11 @@
     <br>
     <b-field>
       <div v-if='errors' class="form-errors">
-        {{ errors }}
+        <ul>
+          <li v-for='error in errors'>
+            {{ error }}
+          </li>
+        </ul>
       </div>
     </b-field>
     <form action="/loans" accept-charset='UTF-8' method='post'>
@@ -21,7 +25,7 @@
         </b-input>
       </b-field>
       <b-field>
-        <b-select
+        <b-select 
             placeholder="Select borrower"
             icon="handshake-o"
             name="loan[borrower_id]"
@@ -29,8 +33,10 @@
             icon-pack="fa"
             expanded
             required>
-            <option value="1">Test Borrower 1</option>
-            <option value="2">Test Borrower 2</option>
+            <option disabled value="">Select borrower</option>
+            <option v-for='borrower in borrowers' :value="borrower.id">
+              {{ borrower.name }}
+            </option>
         </b-select>
       </b-field>
       <b-field>
@@ -42,17 +48,21 @@
             icon-pack="fa"
             expanded
             required>
-            <option value="1">Loan Plan 1</option>
+            <option disabled value="">Select loan plan</option>
+            <option v-for='loanPlan in loanPlans' :value="loanPlan.id">
+              {{ loanPlan.name }}
+            </option>
         </b-select>
       </b-field>
       <br>
       <br>
-      <input type="submit"
-             name='commit'
-             value='Add'
-             class='button is-large is-primary'
-             @click.prevent='createNewLoan'>
-
+      <b-field class="has-text-centered">
+        <input type="submit"
+              name='commit'
+              value='Save loan'
+              class='button is-large is-primary'
+              @click.prevent='createNewLoan'>
+      </b-field>
     </form>
   </div>
 </template>
@@ -67,22 +77,43 @@
         loanPlans: [],
       }
     },
+    beforeMount() {
+      this.getBorrowers();
+      this.getLoanPlans();
+    },
     methods: {
+      getBorrowers() {
+        this.$http.get('/api/v1/borrowers').then(
+          response => {
+            this.borrowers = response.body; 
+            console.log(response.body)
+          },
+          response => {
+            console.log(response.body)
+          });
+      },
+      getLoanPlans() {
+        this.$http.get('/api/v1/loan_plans').then(
+          response => {
+            this.loanPlans = response.body; 
+            console.log(response.body)
+          },
+          response => {
+            console.log(response.body)
+          });
+      },
       createNewLoan() {
         this.$http.post(
-          '/loans', {
+          '/api/v1/loans', {
             loan: this.loan,
-            emulateJSON: true,
-            responseType: 'json'
         }).then(
           response => {
             Turbolinks.visit();
           },
           response => {
-            this.errors = response.body;
-            console.log(response.body);
+            this.errors = response.body.message.split(': ')[1].split(', ');
           });
-      }
+      },
     }
   }
 </script>
