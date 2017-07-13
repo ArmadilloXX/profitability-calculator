@@ -14,7 +14,7 @@ RSpec.feature 'User add new payment', type: :feature, js: true do
     it 'shows newly created payment amount in payments table' do
       expect(page).to have_content(191_666.67)
     end
-    xit 'shows newly created payment period in payments table' do
+    it 'shows newly created payment period in payments table' do
       expect(page).to have_content('Month 1')
     end
   end
