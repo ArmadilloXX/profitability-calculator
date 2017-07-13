@@ -23,7 +23,7 @@ class Payment < ApplicationRecord
   private
 
   def update_received_payments
-    loan.update_received_sum
+    loan.reload.update_received_sum
   end
 
   def overdued?
