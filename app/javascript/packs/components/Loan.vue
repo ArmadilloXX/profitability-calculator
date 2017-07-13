@@ -6,6 +6,64 @@
           <h1 class="title is-1">
             Loan Details #{{ loanId }}
           </h1>
+          <br>
+          <div class="columns">
+            <div class="column is-6 has-text-centered">
+              <h2 class="title is-4">
+                {{ loan.borrower_id }}
+              </h2>
+              <h2 class="subtitle is-6">
+                Borrower
+              </h2>
+            </div>
+            <div class="column is-6 has-text-centered">
+              <h2 class="title is-4">
+                {{ loan.loan_plan_id }}
+              </h2>
+              <h2 class="subtitle is-6">
+                Loan Plan
+              </h2>
+            </div>
+          </div>
+          <br>
+          <div class="box">
+            <div class="columns">
+              <div class="column is-3 has-text-centered">
+                <h2 class="title is-3">
+                  {{ loan.amount.toFixed(2) }}
+                </h2>
+                <h2 class="subtitle is-6">
+                  Amount
+                </h2>
+              </div>
+              <div class="column is-3 has-text-centered">
+                <h2 class="title is-3">
+                  {{ loan.expected_sum.toFixed(2) }}
+                </h2>
+                <h2 class="subtitle is-6">
+                  Expected Sum
+                </h2>
+              </div>
+              <div class="column is-3 has-text-centered">
+                <h2 class="title is-3">
+                  {{ loan.received_sum }}
+                </h2>
+                <h2 class="subtitle is-6">
+                  Received Sum
+                </h2>
+              </div>
+              <div class="column is-3 has-text-centered">
+                <h2 class="title is-3">
+                  <strong>
+                    {{ currentProfitability }}
+                  </strong>
+                </h2>
+                <h2 class="subtitle is-6 ">
+                  Current Profitability
+                </h2>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -25,7 +83,7 @@
           <b-modal v-cloak :active.sync='newPaymentFormOpened' :width='450'>
             <div class="card">
               <div class="card-content">
-                <app-payment-form :loan-id='loanId'>
+                <app-payment-form :loan='loan'>
                 </app-payment-form>
               </div>
             </div>
@@ -52,6 +110,11 @@
     beforeMount() {
       this.getLoanDetails();
     },
+    computed: {
+      currentProfitability() {
+        return `${(this.loan.current_profitability_rate * 100).toFixed(2)}%`
+      }
+    },
     components: {
       appLoanPaymentsTable: LoanPaymentsTable,
       appPaymentForm: PaymentForm
@@ -74,3 +137,9 @@
     }
   }
 </script>
+
+<style>
+.box {
+  background-color: hsl(271, 100%, 31%) !important;
+}
+</style>
