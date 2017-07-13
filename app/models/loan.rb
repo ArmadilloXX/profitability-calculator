@@ -36,7 +36,7 @@ class Loan < ApplicationRecord
   def monthly_main_debt_coverage_sum
     (amount / duration).to_f.round(2)
   end
-  
+
   def update_received_sum
     update_attributes(received_sum: payments.map(&:amount).reduce(:+).to_f.round(2))
   end

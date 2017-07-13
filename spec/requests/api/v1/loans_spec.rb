@@ -43,7 +43,6 @@ RSpec.describe 'Api::V1::Loans', type: :request do
 
     context 'when records does not exist' do
       let(:loan_id) { 200 }
-      
       it 'returns 404 status code' do
         expect(response).to have_http_status(:not_found)
       end
@@ -75,40 +74,40 @@ RSpec.describe 'Api::V1::Loans', type: :request do
       let(:endpoint) { '/api/v1/loans' }
 
       include_examples 'returns validation error',
-                      condition: 'amount is missing',
-                      message: "Amount can't be blank, Amount is not a number",
-                      invalid_data: { amount: nil }
+                       condition: 'amount is missing',
+                       message: "Amount can't be blank, Amount is not a number",
+                       invalid_data: { amount: nil }
 
       include_examples 'returns validation error',
-                      condition: 'amount is less than 0',
-                      message: 'Amount must be greater than 0',
-                      invalid_data: { amount: - 1000 }
+                       condition: 'amount is less than 0',
+                       message: 'Amount must be greater than 0',
+                       invalid_data: { amount: - 1000 }
 
       include_examples 'returns validation error',
-                      condition: 'borrower is missing',
-                      message: "Borrower must exist, Borrower can't be blank",
-                      invalid_data: { borrower_id: nil}
+                       condition: 'borrower is missing',
+                       message: "Borrower must exist, Borrower can't be blank",
+                       invalid_data: { borrower_id: nil }
 
       include_examples 'returns validation error',
-                      condition: 'borrower is not exists',
-                      message: "Borrower must exist, Borrower can't be blank",
-                      invalid_data: { borrower_id: 500 }
+                       condition: 'borrower is not exists',
+                       message: "Borrower must exist, Borrower can't be blank",
+                       invalid_data: { borrower_id: 500 }
 
       include_examples 'returns validation error',
-                      condition: 'loan_plan is missing',
-                      message: 'Loan plan must exist',
-                      invalid_data: { loan_plan_id: nil}
+                       condition: 'loan_plan is missing',
+                       message: 'Loan plan must exist',
+                       invalid_data: { loan_plan_id: nil }
 
       include_examples 'returns validation error',
-                      condition: 'loan_plan is not exists',
-                      message: 'Loan plan must exist',
-                      invalid_data: { loan_plan_id: 500}
+                       condition: 'loan_plan is not exists',
+                       message: 'Loan plan must exist',
+                       invalid_data: { loan_plan_id: 500 }
     end
   end
 
   def valid_attributes
-    { 
-      loan: { 
+    {
+      loan: {
         amount: 5_000_000,
         borrower_id: borrower.id,
         loan_plan_id: loan_plan.id

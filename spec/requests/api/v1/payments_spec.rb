@@ -36,43 +36,42 @@ RSpec.describe 'Api::V1::Payments', type: :request do
 
       it 'creates new payment' do
         expect(json['loan_id']).to eq(loan.id)
-        expect(json['amount']).to eq(200000)
+        expect(json['amount']).to eq(200_000)
       end
     end
 
     context 'when request is invalid' do
       let(:endpoint) { "/api/v1/loans/#{loan.id}/payments" }
+      include_examples 'returns validation error',
+                       condition: 'amount is missing',
+                       message: 'Amount is not a number',
+                       invalid_data: { amount: nil }
 
       include_examples 'returns validation error',
-                      condition: 'amount is missing',
-                      message: "Amount is not a number",
-                      invalid_data: { amount: nil }
+                       condition: 'amount is less than 0',
+                       message: 'Amount must be greater than 0',
+                       invalid_data: { amount: -1000 }
 
       include_examples 'returns validation error',
-                      condition: 'amount is less than 0',
-                      message: 'Amount must be greater than 0',
-                      invalid_data: { amount: -1000 }
-
-      include_examples 'returns validation error',
-                      condition: 'payment_perion is missing',
-                      message: "Payment period can't be blank",
-                      invalid_data: { payment_period: nil}
+                       condition: 'payment_perion is missing',
+                       message: "Payment period can't be blank",
+                       invalid_data: { payment_period: nil }
     end
   end
 
   def valid_attributes
-    { 
-      payment: { 
+    {
+      payment: {
         amount: 200_000,
         payment_period: 'Month 1',
         overdue: false
-      },
+      }
     }
   end
 
   def invalid_attributes(bad_data)
     {
-      payment: valid_attributes[:payment].merge(bad_data),
+      payment: valid_attributes[:payment].merge(bad_data)
     }
   end
 end
