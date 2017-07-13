@@ -5,7 +5,9 @@
         <div class="container has-text-centered">
           <div class="columns">
             <div class="column is-6 has-text-centered">
-              <h2 class="title is-1">30%</h2>
+              <h2 class="title is-1">
+                {{ expectedProfitabilityRate }}
+              </h2>
               <h2 class="subtitle is-5">Expected profitability rate</h2>
             </div>
             <div class="column is-6 has-text-centered">
@@ -69,13 +71,24 @@
           return loan.amount + sum;
         }, 0);
       },
+      totalExpectedSum() {
+        return this.loansData.reduce((sum, loan) => {
+          return loan.expected_sum + sum;
+        }, 0);
+      },
       totalReceivedInterestsSum() {
         return this.loansData.reduce((sum, loan) => {
           return loan.received_interests_sum + sum;
         }, 0);
       },
       realProfitabilityRate() {
-        return parseFloat(this.totalReceivedInterestsSum / this.totalLendedSum / 6 * 12 *100).toFixed(2) + '%';
+        return parseFloat((this.totalReceivedInterestsSum / this.totalLendedSum /
+          6 * 12 *100) || 0).toFixed(2)  + '%';
+      },
+      expectedProfitabilityRate() {
+        return parseFloat(((this.totalExpectedSum - this.totalLendedSum) /
+          this.totalLendedSum /
+          6 * 12 *100) || 0).toFixed(2)  + '%';
       }
     },
     methods: {
