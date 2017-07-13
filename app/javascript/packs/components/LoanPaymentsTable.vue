@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <b-table
+      ref="table"
       :data="paymentsData"
       :bordered="isBordered"
       :striped="isStriped"
@@ -11,7 +12,7 @@
       :paginated="isPaginated"
       :per-page="perPage"
       :pagination-simple="isPaginationSimple"
-      default-sort="id"
+      default-sort="['payment_period', 'asc']"
       :selected.sync="selected"
       :checked-rows.sync="checkedRows">
 
@@ -20,11 +21,11 @@
             {{ props.row.id }}
         </b-table-column>
 
-        <b-table-column field="period" label="Period" sortable>
-            {{ props.row.payment_period }}
+        <b-table-column field="payment_period" label="Period" sortable>
+          {{ 'Month ' + props.row.payment_period }}
         </b-table-column>
 
-        <b-table-column field="overdue" label="Overdued?" sortable>
+        <b-table-column field="overdue" label="Overdued?" sortable numeric>
           <span class="tag"
                 :class="{ 'is-success': !props.row.overdue,
                           'is-danger': props.row.overdue }">
@@ -65,7 +66,8 @@
     methods: {
       getPaymentsList() {
         this.$http.get(`/api/v1/loans/${this.loanId}/payments`).then(response => {
-          this.paymentsData = response.body;
+          let sorted = response.body.sort((el) => { return el.payment_period });
+          this.paymentsData = sorted;
         }, response => {
           console.log(response);
         });
