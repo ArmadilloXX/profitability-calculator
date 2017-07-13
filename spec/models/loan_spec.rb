@@ -14,4 +14,15 @@ RSpec.describe Loan, type: :model do
     it { is_expected.to validate_presence_of :borrower }
     it { is_expected.to validate_numericality_of(:amount).is_greater_than(0) }
   end
+
+  describe '#received sum' do
+  end
+  describe '#received_main_debt_sum' do
+  end
+  describe '#received_interests_sum' do
+  end
+  describe '#expected sum' do
+  end
+  describe '#current_profitability_rate' do
+  end
 end
