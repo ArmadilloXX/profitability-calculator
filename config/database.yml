@@ -17,15 +17,15 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
-  username: postgres
-  password: mypassword
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
+  host: localhost
+  username: postgres
+  password: mypassword
   database: ProfitabilityCalculator_development
 
   # The specified database role being used to connect to postgres.
@@ -60,6 +60,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: localhost
+  username: postgres
+  password: mypassword
   database: ProfitabilityCalculator_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -82,7 +85,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: ProfitabilityCalculator_production
-  username: ProfitabilityCalculator
-  password: <%= ENV['PROFITABILITYCALCULATOR_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

@@ -7,7 +7,7 @@ class LoanPlan < ApplicationRecord
   attribute :overdue_monthly_rate, :float
 
   def payments_periods
-    (1..duration).map { |number| "Month #{number}" }
+    Set.new(1..duration)
   end
 
   def basic_monthly_rate

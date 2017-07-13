@@ -1,14 +1,13 @@
 /* eslint no-console:0 */
 
-import Vue from 'vue/dist/vue';
-import VueResource from 'vue-resource'
+import Vue from 'vue';
+import router from './routing/router';
+import VueResource from 'vue-resource';
 import Buefy from 'buefy';
 import 'buefy/lib/buefy.css';
 import css from './stylesheets/application.sass';
 import TurbolinksAdapter from 'vue-turbolinks';
-import Header from './components/Header.vue';
-import Loans from './components/Loans.vue';
-import LoanPayments from './components/LoanPayments.vue';
+import App from './components/Application.vue';
 
 Vue.use(VueResource);
 
@@ -21,20 +20,14 @@ Vue.use(Buefy, {
   defaultIconPack: 'fa'
 });
 
-Vue.component('application', {
-  components: {
-    appHeader: Header,
-    appLoans: Loans,
-    appLoanPayments: LoanPayments
-  }
-});
-
 document.addEventListener('turbolinks:load', () => {
-  var element = document.getElementsByTagName('application')[0];
+  let element = document.getElementById('application');
   if (element !== null) {
-    var app = new Vue({
+    new Vue({
       mixins: [TurbolinksAdapter],
-      el: element
+      el: element,
+      router,
+      render: (h) => h(App)
     });
   }
 });

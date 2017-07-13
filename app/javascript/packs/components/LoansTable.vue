@@ -23,18 +23,32 @@
           <b-table-column field="borrower" label="Borrower" sortable>
               {{ props.row.borrower }}
           </b-table-column>
+          
+          <b-table-column field="loan_plan" label="Loan Plan" sortable numeric>
+              {{ props.row.loan_plan_id }}
+          </b-table-column>
 
           <b-table-column field="amount" label="Amount" sortable numeric>
               {{ parseFloat(props.row.amount) }}
           </b-table-column>
 
+          <b-table-column field="expected_sum" label="Expected sum" sortable numeric>
+              {{ parseFloat(props.row.expected_sum) }}
+          </b-table-column>
+          
           <b-table-column field="received_sum" label="Received Sum" sortable numeric>
               {{ parseFloat(props.row.received_sum) }}
           </b-table-column>
 
+          <b-table-column field="profitability_rate" label="Profitability Rate" sortable numeric>
+            {{ (props.row.current_profitability_rate *100).toFixed(2) + '%' }}
+          </b-table-column>
+
           <b-table-column label="Details">
-            <a class="button is-small is-primary"
-              :href="linkToLoanDetails(props.row.id)">Payments</a>
+            <router-link class='button is-small is-primary'
+                         :to='linkToLoanDetails(props.row.id)'>
+              Details
+            </router-link>
           </b-table-column>
       </template>
     </b-table> 

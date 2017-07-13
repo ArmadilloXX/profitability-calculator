@@ -1,4 +1,5 @@
 AllCops:
+  DisplayCopNames: true
   Exclude:
     - db/**
     - node_modules/**/**
@@ -11,4 +12,9 @@ Rails:
 Documentation:
   Enabled: false
 FrozenStringLiteralComment:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
+Style/ClassAndModuleChildren:
   Enabled: false

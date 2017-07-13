@@ -3,10 +3,13 @@ class Loan < ApplicationRecord
   belongs_to :loan_plan
   has_many :payments, dependent: :destroy
   validates :amount, presence: true
+  validates :borrower, presence: true
   validates :amount, numericality: { greater_than: 0 }
   attribute :received_sum, :float, default: 0.0
   attribute :expected_sum, :float, default: 0.0
   attribute :received_interests_sum, :float
+  attribute :upcoming_payment_periods
+  attribute :current_profitability_rate, :float
   after_create :set_expected_sum
 
   default_scope -> { includes(:payments) }
@@ -19,7 +22,7 @@ class Loan < ApplicationRecord
             to: :loan_plan
 
   def upcoming_payment_periods
-    (payments_periods - closed_payment_periods).map { |name| name }
+    (payments_periods - closed_payment_periods).map { |period| period }.sort
   end
 
   def monthly_basic_interests_sum
@@ -42,7 +45,7 @@ class Loan < ApplicationRecord
     if payments.empty?
       0
     else
-      (received_interests_sum / received_main_debt_sum * 12.0 / duration).round(2)
+      (received_interests_sum / received_main_debt_sum * 12.0 / duration).round(4)
     end
   end
 
