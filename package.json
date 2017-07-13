@@ -2,6 +2,7 @@
   "name": "ProfitabilityCalculator",
   "private": true,
   "dependencies": {
+    "@kazupon/vue-i18n-loader": "^0.1.1",
     "autoprefixer": "^7.1.1",
     "babel-core": "^6.25.0",
     "babel-loader": "7.x",
