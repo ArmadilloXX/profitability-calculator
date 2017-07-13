@@ -19,4 +19,8 @@ deployment:
     branch: master
     heroku:
       appname: profitability-calculator
+  production:
+    branch: development
+    heroku:
+      appname: dev-profitability-calculator
 
