@@ -4,7 +4,11 @@
     <br>
     <b-field>
       <div v-if='errors' class="form-errors">
-        {{ errors }}
+        <ul>
+          <li v-for='error in errors'>
+            {{ error }}
+          </li>
+        </ul>
       </div>
     </b-field>
     <form accept-charset='utf-8'>
@@ -29,8 +33,10 @@
             icon-pack="fa"
             expanded
             required>
-            <option value="Month 1">Month 1</option>
-            <option value="Month 2">Month 2</option>
+            <option disabled value="">Select payment period</option>
+            <option v-for='period in upcomingPeriods' :value="period">
+                Month {{ period }}
+            </option>
         </b-select>
       </b-field>
       <br>
@@ -61,17 +67,24 @@
 
 <script>
   export default {
-    props: [ 'loanId' ],
+    props: [ 'loan' ],
     data() {
       return {
         errors: undefined,
-        payment: {},
+        payment: {
+          overdue: false
+        },
+      }
+    },
+    computed: {
+      upcomingPeriods() {
+        return this.loan.upcoming_payment_periods;
       }
     },
     methods: {
       createNewPayment() {
         this.$http.post(
-          `/loans/${this.loanId}/payments`,
+          `/api/v1/loans/${this.loan.id}/payments`,
             {
               payment: this.payment
             },
@@ -84,8 +97,7 @@
             Turbolinks.visit();
           },
           response =>{
-            this.errors = response.body;
-            console.log(response.body);
+            this.errors = response.body.message.split(': ')[1].split(', ');
           });
       }
     }
