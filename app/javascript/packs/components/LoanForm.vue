@@ -1,6 +1,22 @@
+<i18n>
+  en:
+    add_new_loan: 'Add new loan'
+    loan_placeholder: 'Enter loan amount'
+    borrower_placeholder: 'Select borrower'
+    plan_placeholder: 'Select loan plan'
+    save_label: 'Save loan'
+  ru:
+    add_new_loan: 'Добавить новый займ'
+    loan_placeholder: 'Введите выданную сумму'
+    borrower_placeholder: 'Выберите заемщика'
+    plan_placeholder: 'Выберите условия займа'
+    save_label: 'Сохранить займ'
+</i18n>
 <template>
   <div class="new-loan-form">
-    <h2 class="title is-3 has-text-centered">Add new loan</h2>
+    <h2 class="title is-3 has-text-centered">
+      {{ $t('add_new_loan') }}
+    </h2>
     <br>
     <b-field>
       <div v-if='errors' class="form-errors">
@@ -20,20 +36,22 @@
             icon="rub"
             name="loan[amount]"
             v-model="loan.amount"
-            placeholder="Enter new loan amount"
+            :placeholder="$t('loan_placeholder')"
             required>
         </b-input>
       </b-field>
       <b-field>
         <b-select 
-            placeholder="Select borrower"
+            :placeholder="$t('borrower_placeholder')"
             icon="handshake-o"
             name="loan[borrower_id]"
             v-model="loan.borrower_id"
             icon-pack="fa"
             expanded
             required>
-            <option disabled value="">Select borrower</option>
+            <option disabled value="">
+            {{ $t('borrower_placeholder') }}
+            </option>
             <option v-for='borrower in borrowers' :value="borrower.id">
               {{ borrower.name }}
             </option>
@@ -41,14 +59,16 @@
       </b-field>
       <b-field>
         <b-select
-            placeholder="Select loan plan"
+            :placeholder="$t('plan_placeholder')"
             icon="calculator"
             name="loan[loan_plan_id]"
             v-model="loan.loan_plan_id"
             icon-pack="fa"
             expanded
             required>
-            <option disabled value="">Select loan plan</option>
+            <option disabled value="">
+              {{ $t('plan_placeholder') }}
+            </option>
             <option v-for='loanPlan in loanPlans' :value="loanPlan.id">
               {{ loanPlan.name }}
             </option>
@@ -59,7 +79,7 @@
       <b-field class="has-text-centered">
         <input type="submit"
               name='commit'
-              value='Save loan'
+              :value="$t('save_label')"
               class='button is-large is-primary'
               @click.prevent='createNewLoan'>
       </b-field>
@@ -69,6 +89,7 @@
 
 <script>
   export default {
+    props: [ 'locale' ],
     data() {
       return {
         errors: undefined,
@@ -80,6 +101,12 @@
     beforeMount() {
       this.getBorrowers();
       this.getLoanPlans();
+      this.$i18n.locale = this.locale;
+    },
+    watch: {
+      locale (val) {
+        this.$i18n.locale = val
+      }
     },
     methods: {
       getBorrowers() {

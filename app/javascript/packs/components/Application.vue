@@ -1,7 +1,7 @@
 <template>
-  <div id="application">
-    <app-header></app-header>
-    <router-view></router-view>
+  <div id="application" >
+    <app-header :locale='locale' @localeChanged='changeLocale'></app-header>
+    <router-view :locale='locale'></router-view>
   </div>
 </template>
 
@@ -12,7 +12,14 @@
 
   export default {
     data() {
-      return {}
+      return {
+        locale: 'ru'
+      }
+    },
+    methods: {
+      changeLocale(locale) {
+        this.locale = locale;
+      }
     },
     components: {
       appHeader: Header,
