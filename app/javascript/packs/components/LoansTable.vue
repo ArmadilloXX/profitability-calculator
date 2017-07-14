@@ -41,11 +41,13 @@
           </b-table-column>
 
           <b-table-column field="borrower" :label="$t('table.borrower')" sortable>
-              {{ props.row.borrower }}
+              {{ props.row.borrower_name }}
           </b-table-column>
           
           <b-table-column field="loan_plan" :label="$t('table.loan_plan')" sortable numeric>
-              {{ props.row.loan_plan_id }}
+            <span class="tag is-dark">
+              {{ props.row.loan_plan_name}}
+            </span>
           </b-table-column>
 
           <b-table-column field="amount" :label="$t('table.amount')" sortable numeric>

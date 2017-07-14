@@ -32,7 +32,7 @@
           <div class="columns">
             <div class="column is-6 has-text-centered">
               <h2 class="title is-4">
-                {{ loan.borrower_id }}
+                {{ loan.borrower_name}}
               </h2>
               <h2 class="subtitle is-6">
                 {{ $t('borrower') }}
@@ -40,7 +40,7 @@
             </div>
             <div class="column is-6 has-text-centered">
               <h2 class="title is-4">
-                {{ loan.loan_plan_id }}
+                {{ loan.loan_plan_name }}
               </h2>
               <h2 class="subtitle is-6">
                 {{ $t('loan_plan') }}
