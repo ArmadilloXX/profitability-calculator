@@ -12,7 +12,7 @@ RSpec.feature 'User visit loan details page', type: :feature, js: true do
     expect(page).to have_css('h2.title', text: borrower.id)
   end
   it "shows loan's amount" do
-    expect(page).to have_css('h2.title', text: '1000000.00')
+    expect(page).to have_css('h2.title', text: '1,000,000')
   end
   it "shows loan's loan plan name" do
     expect(page).to have_css('h2.title', text: loan_plan.id)
