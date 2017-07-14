@@ -10,16 +10,27 @@ class Loan < ApplicationRecord
   attribute :received_interests_sum, :float
   attribute :upcoming_payment_periods
   attribute :current_profitability_rate, :float
+  attribute :borrower_name
+  attribute :loan_plan_name
   after_create :set_expected_sum
 
   default_scope -> { includes(:payments) }
 
   delegate  :duration,
+            :name,
             :payments_periods,
             :basic_rate,
             :basic_monthly_rate,
             :overdue_monthly_rate,
             to: :loan_plan
+
+  def borrower_name
+    borrower.name
+  end
+
+  def loan_plan_name
+    name
+  end
 
   def upcoming_payment_periods
     (payments_periods - closed_payment_periods).map { |period| period }.sort
