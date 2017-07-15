@@ -134,8 +134,10 @@
         newPaymentFormOpened: false
       }
     },
-    beforeMount() {
+    created() {
       this.getLoanDetails();
+    },
+    beforeMount() {
       this.$i18n.locale = this.locale;
     },
     watch: {
@@ -157,7 +159,6 @@
         this.$http.get(`/api/v1/loans/${this.loanId}`).then(
           response => {
             this.loan = response.body;
-            console.log(response.body);
           },
           response => {
             console.log(response.body);
