@@ -106,10 +106,10 @@
               </div>
             </div>
           </div>
-          <b-modal v-cloak :active.sync='newPaymentFormOpened' :width='450'>
+          <b-modal v-cloak ref='modal' :active.sync='newPaymentFormOpened' :width='450'>
             <div class="card">
               <div class="card-content">
-                <app-payment-form :locale='locale' :loan='loan'>
+                <app-payment-form :locale='locale' :loan='loan' @paymentCreated="paymentWasCreated">
                 </app-payment-form>
               </div>
             </div>
@@ -117,7 +117,7 @@
         </div>
       </div>
     </section>
-      <app-loan-payments-table :loan-id='loanId' :locale='locale' v-cloak></app-loan-payments-table>
+      <app-loan-payments-table ref='payments' :loan-id='loanId' :locale='locale' v-cloak></app-loan-payments-table>
     </div>
   </main>
 </template>
@@ -130,12 +130,18 @@
     data() {
       return {
         loanId: this.$route.params.id,
-        loan: {},
+        loan: {
+          amount: 0,
+          expected_sum: 0,
+          received_sum: 0
+        },
         newPaymentFormOpened: false
       }
     },
-    beforeMount() {
+    created() {
       this.getLoanDetails();
+    },
+    beforeMount() {
       this.$i18n.locale = this.locale;
     },
     watch: {
@@ -153,11 +159,15 @@
       appPaymentForm: PaymentForm
     },
     methods: {
+      paymentWasCreated() {
+        this.getLoanDetails();
+        this.$refs.modal.close();
+        this.$refs.payments.getPaymentsList();
+      },
       getLoanDetails() {
         this.$http.get(`/api/v1/loans/${this.loanId}`).then(
           response => {
             this.loan = response.body;
-            console.log(response.body);
           },
           response => {
             console.log(response.body);

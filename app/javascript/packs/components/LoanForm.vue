@@ -41,7 +41,7 @@
         </b-input>
       </b-field>
       <b-field>
-        <b-select 
+        <b-select
             :placeholder="$t('borrower_placeholder')"
             icon="handshake-o"
             name="loan[borrower_id]"
@@ -112,21 +112,17 @@
       getBorrowers() {
         this.$http.get('/api/v1/borrowers').then(
           response => {
-            this.borrowers = response.body; 
-            console.log(response.body)
+            this.borrowers = response.body;
           },
           response => {
-            console.log(response.body)
           });
       },
       getLoanPlans() {
         this.$http.get('/api/v1/loan_plans').then(
           response => {
-            this.loanPlans = response.body; 
-            console.log(response.body)
+            this.loanPlans = response.body;
           },
           response => {
-            console.log(response.body)
           });
       },
       createNewLoan() {
@@ -135,7 +131,7 @@
             loan: this.loan,
         }).then(
           response => {
-            Turbolinks.visit();
+            this.$emit('loanCreated');
           },
           response => {
             this.errors = response.body.message.split(': ')[1].split(', ');
