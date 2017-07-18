@@ -67,10 +67,10 @@
               </div>
             </div>
           </div>
-          <b-modal v-cloak :active.sync='newLoanFormOpened' :width='450'>
+          <b-modal v-cloak ref='modal' :active.sync='newLoanFormOpened' :width='450'>
             <div class="card">
               <div class="card-content">
-                <app-loan-form :locale='locale'>
+                <app-loan-form :locale='locale' @loanCreated='loanWasCreated'>
                 </app-loan-form>
               </div>
             </div>
@@ -85,7 +85,6 @@
 <script>
   import LoansTable from './LoansTable.vue'
   import LoanForm from './LoanForm.vue'
-  
   export default {
     props: [ 'locale' ],
     data() {
@@ -134,6 +133,10 @@
       }
     },
     methods: {
+      loanWasCreated() {
+        this.$refs.modal.close();
+        this.getLoansList();
+      },
       getLoansList() {
         this.$http.get('/api/v1/loans').then(response => {
           this.loansData = response.body;

@@ -122,7 +122,7 @@
             }
           ).then(
           response =>{
-            Turbolinks.visit();
+            this.$emit('paymentCreated');
           },
           response =>{
             this.errors = response.body.message.split(': ')[1].split(', ');
