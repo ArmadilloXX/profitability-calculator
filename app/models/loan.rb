@@ -16,21 +16,15 @@ class Loan < ApplicationRecord
 
   default_scope -> { includes(:payments) }
 
+  delegate :name, to: :loan, prefix: true
+  delegate :name, to: :borrower, prefix: true
+
   delegate  :duration,
-            :name,
             :payments_periods,
             :basic_rate,
             :basic_monthly_rate,
             :overdue_monthly_rate,
             to: :loan_plan
-
-  def borrower_name
-    borrower.name
-  end
-
-  def loan_plan_name
-    name
-  end
 
   def upcoming_payment_periods
     (payments_periods - closed_payment_periods).map { |period| period }.sort
@@ -49,14 +43,17 @@ class Loan < ApplicationRecord
   end
 
   def update_received_sum
-    update_attributes(received_sum: payments.map(&:amount).reduce(:+).to_f.round(2))
+    update_attributes(
+      received_sum: payments.map(&:amount).reduce(:+).to_f.round(2)
+    )
   end
 
   def current_profitability_rate
     if payments.empty?
       0
     else
-      (received_interests_sum / received_main_debt_sum * 12.0 / duration).round(4)
+      (received_interests_sum / received_main_debt_sum * 12.0 / duration)
+        .round(4)
     end
   end
 

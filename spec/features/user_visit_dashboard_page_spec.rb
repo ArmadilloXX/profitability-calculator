@@ -9,7 +9,8 @@ RSpec.feature 'User visit dashboard page', type: :feature, js: true do
   context 'successfully' do
     before { visit '/dashboard' }
     it 'shows expected profitability' do
-      expect(page).to have_css('h2.subtitle', text: 'Expected profitability rate')
+      expect(page).to have_css('h2.subtitle',
+                               text: 'Expected profitability rate')
     end
     it 'shows real profitability' do
       expect(page).to have_css('h2.subtitle', text: 'Real profitability rate')

@@ -6,4 +6,4 @@ export const routes = [
   { path: '/', component: Home },
   { path: '/dashboard', component: Loans },
   { path: '/loans/:id', component: Loan },
-]
+];
