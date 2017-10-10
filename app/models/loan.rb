@@ -16,15 +16,16 @@ class Loan < ApplicationRecord
 
   default_scope -> { includes(:payments) }
 
-  delegate :name, to: :loan, prefix: true
+  delegate :name, to: :loan_plan, prefix: true
   delegate :name, to: :borrower, prefix: true
 
-  delegate  :duration,
-            :payments_periods,
-            :basic_rate,
-            :basic_monthly_rate,
-            :overdue_monthly_rate,
-            to: :loan_plan
+  delegate :duration,
+           :name,
+           :payments_periods,
+           :basic_rate,
+           :basic_monthly_rate,
+           :overdue_monthly_rate,
+           to: :loan_plan
 
   def upcoming_payment_periods
     (payments_periods - closed_payment_periods).map { |period| period }.sort
