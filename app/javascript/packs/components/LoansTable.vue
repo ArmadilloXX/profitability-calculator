@@ -1,3 +1,23 @@
+<i18n>
+  en:
+    table:
+      borrower: 'Borrower'
+      loan_plan: 'Loan Plan'
+      amount: 'Amount'
+      exp_sum: 'Expected Sum'
+      rec_sum: 'Received Sum'
+      prof_rate: 'Profitability Rate'
+      details: 'Details'
+  ru:
+    table:
+      borrower: 'Заемщик'
+      loan_plan: 'План займа(условия)'
+      amount: 'Выданная сумма'
+      exp_sum: 'Ожидаемая сумма'
+      rec_sum: 'Полученная сумма'
+      prof_rate: 'Доходность'
+      details: 'Подробности'
+</i18n>
 <template>
   <div class="container">
     <b-table
@@ -20,21 +40,37 @@
               {{ props.row.id }}
           </b-table-column>
 
-          <b-table-column field="borrower" label="Borrower" sortable>
-              {{ props.row.borrower }}
+          <b-table-column field="borrower" :label="$t('table.borrower')" sortable>
+              {{ props.row.borrower_name }}
+          </b-table-column>
+          
+          <b-table-column field="loan_plan" :label="$t('table.loan_plan')" sortable numeric>
+            <span class="tag is-dark">
+              {{ props.row.loan_plan_name}}
+            </span>
           </b-table-column>
 
-          <b-table-column field="amount" label="Amount" sortable numeric>
-              {{ parseFloat(props.row.amount) }}
+          <b-table-column field="amount" :label="$t('table.amount')" sortable numeric>
+              {{ parseFloat(props.row.amount).toLocaleString(locale) }}
           </b-table-column>
 
-          <b-table-column field="received_sum" label="Received Sum" sortable numeric>
-              {{ parseFloat(props.row.received_sum) }}
+          <b-table-column field="expected_sum" :label="$t('table.exp_sum')" sortable numeric>
+              {{ parseFloat(props.row.expected_sum).toLocaleString(locale) }}
+          </b-table-column>
+          
+          <b-table-column field="received_sum" :label="$t('table.rec_sum')" sortable numeric>
+              {{ parseFloat(props.row.received_sum).toLocaleString(locale) }}
           </b-table-column>
 
-          <b-table-column label="Details">
-            <a class="button is-small is-primary"
-              :href="linkToLoanDetails(props.row.id)">Payments</a>
+          <b-table-column field="profitability_rate" :label="$t('table.prof_rate')" sortable numeric>
+            {{ (props.row.current_profitability_rate *100).toFixed(2) + '%' }}
+          </b-table-column>
+
+          <b-table-column label=''>
+            <router-link class='button is-small is-primary'
+                         :to='linkToLoanDetails(props.row.id)'>
+              {{ $t('table.details') }}
+            </router-link>
           </b-table-column>
       </template>
     </b-table> 
@@ -43,7 +79,7 @@
 
 <script>
   export default {
-    props: ['loansData'],
+    props: ['loansData', 'locale'],
     data() {
         return {
             checkedRows: [],
@@ -58,6 +94,14 @@
             isPaginationSimple: false,
             perPage: 10
         }
+    },
+    beforeMount() {
+      this.$i18n.locale = this.locale;
+    },
+    watch: {
+      locale (val) {
+        this.$i18n.locale = val
+      }
     },
     methods: {
       linkToLoanDetails(id) {

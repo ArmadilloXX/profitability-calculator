@@ -1,17 +1,17 @@
 require 'rails_helper'
 require 'support/capybara'
 
-RSpec.feature 'User visit dashboard page', type: :feature, js: true do
+RSpec.feature 'User add new loan', type: :feature, js: true do
   let!(:borrower)   { create :borrower }
   let!(:loan_plan)  { create :loan_plan }
 
   def fill_and_submit_new_loan_form
-    visit dashboard_path
+    visit '/dashboard'
     click_on 'Add new loan'
     fill_in 'loan[amount]', with: 500_000
     select loan_plan.name,  from: 'loan[loan_plan_id]'
     select borrower.name,   from: 'loan[borrower_id]'
-    click_on 'Save'
+    click_on 'Save loan'
   end
 
   context 'with correct data' do
@@ -20,7 +20,7 @@ RSpec.feature 'User visit dashboard page', type: :feature, js: true do
     end
 
     it 'shows newly created loan in loans table' do
-      expect(page).to have_content(500_000)
+      expect(page).to have_content('500,000')
     end
   end
 end

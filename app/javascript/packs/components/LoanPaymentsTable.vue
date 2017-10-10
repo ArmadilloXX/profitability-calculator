@@ -1,6 +1,23 @@
+<i18n>
+  en:
+    amount: 'Amount'
+    period_label: 'Period'
+    period_name: 'Month'
+    overdue_label: 'Overdued?'
+    normal_name: 'Normal'
+    overdue_name: 'Payment overdue'
+  ru:
+    amount: 'Сумма платежа'
+    period_label: 'Период'
+    period_name: 'Месяц'
+    overdue_label: 'Платеж просрочен?'
+    normal_name: 'Платеж в срок'
+    overdue_name: 'Платеж просрочен'
+</i18n>
 <template>
   <div class="container">
     <b-table
+      ref="table"
       :data="paymentsData"
       :bordered="isBordered"
       :striped="isStriped"
@@ -11,7 +28,7 @@
       :paginated="isPaginated"
       :per-page="perPage"
       :pagination-simple="isPaginationSimple"
-      default-sort="id"
+      default-sort="['payment_period', 'asc']"
       :selected.sync="selected"
       :checked-rows.sync="checkedRows">
 
@@ -20,20 +37,20 @@
             {{ props.row.id }}
         </b-table-column>
 
-        <b-table-column field="period" label="Period" sortable>
-            {{ props.row.payment_period }}
+        <b-table-column field="payment_period" :label="$t('period_label')" sortable>
+          {{ $t('period_name') }} {{ props.row.payment_period }}
         </b-table-column>
 
-        <b-table-column field="overdue" label="Overdued?" sortable>
+        <b-table-column field="overdue" :label="$t('overdue_label')" sortable numeric>
           <span class="tag"
                 :class="{ 'is-success': !props.row.overdue,
                           'is-danger': props.row.overdue }">
-            {{ props.row.overdue ? 'Overdued' : 'Normal'}}
+            {{ props.row.overdue ? $t('overdue_name') : $t('normal_name') }}
           </span>
         </b-table-column>
 
-        <b-table-column field="amount" label="Amount" sortable numeric>
-            {{ props.row.amount}}
+        <b-table-column field="amount" :label="$t('amount')" sortable numeric>
+            {{ props.row.amount.toLocaleString(locale) }}
         </b-table-column>
       </template>
     </b-table> 
@@ -42,9 +59,15 @@
 
 <script>
   export default {
-    props: [ 'loanId' ],
+    props: [ 'loanId', 'locale'],
     beforeMount() {
       this.getPaymentsList();
+      this.$i18n.locale = this.locale;
+    },
+    watch: {
+      locale (val) {
+        this.$i18n.locale = val
+      }
     },
     data() {
         return {
@@ -64,8 +87,9 @@
     },
     methods: {
       getPaymentsList() {
-        this.$http.get(`/loans/${this.loanId}/payments`).then(response => {
-          this.paymentsData = response.body;
+        this.$http.get(`/api/v1/loans/${this.loanId}/payments`).then(response => {
+          let sorted = response.body.sort((el) => { return el.payment_period });
+          this.paymentsData = sorted;
         }, response => {
           console.log(response);
         });
